@@ -5,7 +5,6 @@ import java.util.Calendar;
 public class Contato {
 	private Long id;
 	private String nome, endereco, email;
-	private Calendar dataNascimento;
 
 	public Long getId() {
 		return id;
@@ -37,14 +36,6 @@ public class Contato {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public Calendar getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(Calendar dataNascimento) {
-		this.dataNascimento = dataNascimento;
 	}
 
 }

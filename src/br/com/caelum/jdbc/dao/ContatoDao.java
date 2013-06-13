@@ -19,8 +19,8 @@ public class ContatoDao {
 	}
 
 	public void adiciona(Contato contato) {
-		String sql = "insert into contatos"
-				+ "(nome,endereco,email,dataNascimento)" + "values(?,?,?,?)";
+		String sql = "insert into contatos" + "(nome,endereco,email)"
+				+ "values(?,?,?)";
 		try {
 			java.sql.PreparedStatement comando = connection
 					.prepareStatement(sql);
@@ -28,20 +28,18 @@ public class ContatoDao {
 			comando.setString(1, contato.getNome());
 			comando.setString(2, contato.getEndereco());
 			comando.setString(3, contato.getEmail());
-			comando.setDate(4, new Date(contato.getDataNascimento()
-					.getTimeInMillis()));
 
 			comando.execute();
 			comando.close();
 		} catch (SQLException e) {
-			throw new RuntimeException("Erro no insert");			
+			throw new RuntimeException("Erro no insert");
 		}
 
 	}
 
 	public void altera(Contato contato) {
 		String sql = "update contatos set nome=?, email=?, endereco=?"
-				+ "dataNascimento=? where id=?";
+				+ "where id=?";
 		try {
 			java.sql.PreparedStatement comando = connection
 					.prepareStatement(sql);
@@ -49,8 +47,6 @@ public class ContatoDao {
 			comando.setString(1, contato.getNome());
 			comando.setString(2, contato.getEndereco());
 			comando.setString(3, contato.getEmail());
-			comando.setDate(4, new Date(contato.getDataNascimento()
-					.getTimeInMillis()));
 			comando.setLong(5, contato.getId());
 			comando.execute();
 			comando.close();
@@ -87,20 +83,13 @@ public class ContatoDao {
 				contato.setEmail(rs.getString("email"));
 				contato.setEndereco(rs.getString("endereco"));
 
-				// montando a data atrav�s do Calendar
-				Calendar data = Calendar.getInstance();
-				data.setTime(rs.getDate("dataNascimento"));
-				contato.setDataNascimento(data);
-
 				// adicionando o objeto � lista
 				contatos.add(contato);
 			}
 			for (Contato contato : contatos) {
 				System.out.println("Nome: " + contato.getNome());
 				System.out.println("Email: " + contato.getEmail());
-				System.out.println("Endere�o: " + contato.getEndereco());
-				System.out.println("Data de Nascimento: "
-						+ contato.getDataNascimento().getTime() + "\n");
+				System.out.println("Endere�o: " + contato.getEndereco() + "\n");
 			}
 			rs.close();
 			stmt.close();
