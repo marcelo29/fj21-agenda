@@ -5,23 +5,23 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionFactory {
-	private String msgErro;
+	private String conErro;
 
 	public Connection getConnection() {
 		try {
 			return DriverManager.getConnection("jdbc:mysql://localhost/fj21",
 					"root", "caelum");
 		} catch (SQLException e) {
-			msgErro = "Erro ao conectar";
+			conErro = "Erro ao conectar";
 			return null;
 		}
 	}
 
 	public String getMsgErro() {
-		return msgErro;
+		return conErro;
 	}
 
 	public void setMsgErro(String msgErro) {
-		this.msgErro = msgErro;
+		this.conErro = msgErro;
 	}
 }
