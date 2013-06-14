@@ -1,25 +1,24 @@
 package br.com.caelum.jdbc.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import br.com.caelum.jdbc.ConnectionFactory;
 import br.com.caelum.jdbc.modelo.Contato;
 
 public class ContatoDao {
 	private Connection connection;
+	ConnectionFactory con = new ConnectionFactory();
 
 	public ContatoDao() {
-		this.connection = new ConnectionFactory().getConnection();
+		this.connection = con.getConnection();
 	}
 
 	public void adiciona(Contato contato) {
-		String sql = "insert into contatos" + "(nome,endereco,email)"
+		String sql = "insert into contatos(nome,endereco,email)"
 				+ "values(?,?,?)";
 		try {
 			java.sql.PreparedStatement comando = connection
@@ -27,7 +26,7 @@ public class ContatoDao {
 
 			comando.setString(1, contato.getNome());
 			comando.setString(2, contato.getEndereco());
-			comando.setString(3, contato.getEmail());
+			comando.setString(4, contato.getEmail());
 
 			comando.execute();
 			comando.close();
